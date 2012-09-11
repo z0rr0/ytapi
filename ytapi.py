@@ -5,12 +5,6 @@ import re, sys, json
 from urllib import request
 
 YANDEX_TRANSLATE_JSON = "http://translate.yandex.net/api/v1/tr.json/translate?lang="
-CHECK_MANY_SPACE = re.compile(r"\s+")
-
-def prepare_str(input_str):
-    global CHECK_MANY_SPACE
-    result = CHECK_MANY_SPACE.sub(" ", input_str.strip())
-    return result
 
 def get_translate(for_translate, trans_type='en'):
     global YANDEX_TRANSLATE_JSON
