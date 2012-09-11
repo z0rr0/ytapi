@@ -15,14 +15,10 @@ def get_translate(for_translate, trans_type='en'):
     try:
         conn = request.urlopen(prepate_url)
         if conn.status == 200:
-            try:
-                from_url = conn.read().decode('utf-8')
-                result = json.loads(from_url)
-            except Exception as e:
-                print(e)
+            from_url = conn.read().decode('utf-8')
+            result = json.loads(from_url)
     except Exception as e:
-        print("Not connection\nError:")
-        print(e)
+        print("Not connection\nError: ".format(e))
         return result
     else:
         conn.close()
