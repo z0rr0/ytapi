@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
 
-import re, sys, json
+import sys, json
 import urllib2 as request
 from urllib import pathname2url
 
