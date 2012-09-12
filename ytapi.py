@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
 
+# tested only in Linux
+
 import sys, json
 import urllib2 as request
 from urllib import pathname2url
@@ -34,7 +36,6 @@ def main():
         ttype = 'en'
     arg = get_translate(" ".join(args), ttype)
     if arg:
-        # arg['text'][0].decode('utf-8').decode('latin1')
         print(arg['text'][0])
     else:
         print("Error")
