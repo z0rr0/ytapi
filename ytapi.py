@@ -26,9 +26,15 @@ def get_translate(for_translate, trans_type='en'):
     return result
  
 def main():
-    args = sys.argv[1:]
-    arg = get_translate(" ".join(args))
+    if len(sys.argv) > 1 and sys.argv[1] in ('en', 'ru'):
+        args = sys.argv[2:]
+        ttype = sys.argv[1]
+    else:
+        args = sys.argv[1:]
+        ttype = 'en'
+    arg = get_translate(" ".join(args), ttype)
     if arg:
+        # arg['text'][0].decode('utf-8').decode('latin1')
         print(arg['text'][0])
     else:
         print("Error")
