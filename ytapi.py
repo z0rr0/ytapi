@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
 
-# tested only in Linux
-
 import sys, json
 import urllib2 as request
 from urllib import pathname2url
