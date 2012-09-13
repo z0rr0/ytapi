@@ -6,12 +6,20 @@
 import sys, json
 import urllib2 as request
 from urllib import pathname2url
+from platform import system as osdetect
 
 YANDEX_TRANSLATE_JSON = "http://translate.yandex.net/api/v1/tr.json/translate?lang="
+
+def win_toggle(get_str):
+    if osdetect() == 'Windows':
+        tmp = bytes(get_str).decode('cp1251')
+        get_str = tmp.encode('utf-8')
+    return get_str
 
 def get_translate(for_translate, trans_type='en'):
     global YANDEX_TRANSLATE_JSON
     result = False
+    for_translate = win_toggle(for_translate)
     prepate_url = pathname2url(for_translate)
     trans_types = {'en': 'en-ru', 'ru': 'ru-en'}
     prepate_url = YANDEX_TRANSLATE_JSON + trans_types[trans_type] + "&text=" + prepate_url
