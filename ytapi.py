@@ -2,18 +2,18 @@
 #-*- coding: utf-8 -*-
 
 import sys, json
-from urllib import request
+from urllib import request, parse
 
-YANDEX_TRANSLATE_JSON = "http://translate.yandex.net/api/v1/tr.json/translate?lang="
+YANDEX_TRANSLATE_JSON = "http://translate.yandex.net/api/v1/tr.json/translate?"
 
 def get_translate(for_translate, trans_type='en'):
     global YANDEX_TRANSLATE_JSON
-    result = False
-    prepate_url = request.pathname2url(for_translate)
     trans_types = {'en': 'en-ru', 'ru': 'ru-en'}
-    prepate_url = YANDEX_TRANSLATE_JSON + trans_types[trans_type] + "&text=" + prepate_url
+    result = False
+    params = {'lang': trans_types[trans_type], 'text': for_translate}
+    prepate_url = parse.urlencode(params, encoding="utf-8")
     try:
-        conn = request.urlopen(prepate_url)
+        conn = request.urlopen(YANDEX_TRANSLATE_JSON + prepate_url, None, 1)
         if conn.status == 200:
             from_url = conn.read().decode('utf-8')
             result = json.loads(from_url)
