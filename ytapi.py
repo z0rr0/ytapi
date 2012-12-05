@@ -47,10 +47,10 @@ def check_spell(for_spelling, spell_type='en'):
         conn.close()
     if len(result) > 0:
         print("Spelling: ", end="")
-    for_result = []
-    for res in result:
-        for_result.append("{0} -> {1}".format(res['word'], res['s']))
-    print("; ".join(for_result), ".", sep="")
+        for_result = []
+        for res in result:
+            for_result.append("{0} -> {1}".format(res['word'], res['s']))
+        print("; ".join(for_result))
     return 0
 
 def main():
