@@ -29,7 +29,8 @@ def check_spell(for_spelling, spell_type='en'):
     global YANDEX_SPELL_JSON
     result = False
     # options = IGNORE_DIGITS(2) + IGNORE_DIGITS(4) + IGNORE_CAPITALIZATION(512) + [BY_WORDS(256)]
-    params = {'lang': spell_type, 'text': for_spelling, 'format': 'plane', 'options': 518}
+    # params = {'lang': spell_type, 'text': for_spelling, 'format': 'plain', 'options': 518}
+    params = {'lang': spell_type, 'text': for_spelling, 'format': 'html', 'options': 518}
     prepate_url = parse.urlencode(params, encoding="utf-8")
     erro_codes = ("ERROR_UNKNOWN_WORD",
         "ERROR_REPEAT_WORD",
