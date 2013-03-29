@@ -1,0 +1,11 @@
+                Bytes      Cards  Artifacts     Deltas
+Sent:              53          1          0          0
+Received:         341          5          1          0
+Sent:              58          2          0          0
+Received:         779          4          0          0
+Total network traffic: 583 bytes sent, 1232 bytes received
+Rebuilding repository meta-data...
+  100.0% complete...
+project-id: 2197d61c3e90e71d7604c787c74280f398667f4b
+server-id:  342e0ef02bfc1fd1de384fdc3e11271458626c96
+admin-user: zorro (password is "f023da")
