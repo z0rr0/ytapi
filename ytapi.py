@@ -1,18 +1,25 @@
 #!/usr/bin/env python3
 #-*- coding: utf-8 -*-
 
-import sys, json
+import sys, json, key
 from urllib import request, parse
 
-YANDEX_TRANSLATE_JSON = "http://translate.yandex.net/api/v1/tr.json/translate?"
+YANDEX_TRANSLATE_JSON = "https://translate.yandex.net/api/v1.5/tr.json/translate?"
 YANDEX_SPELL_JSON = "http://speller.yandex.net/services/spellservice.json/checkText?"
+FORMAT = ('plain', 'html')
 
 def get_translate(for_translate, trans_type='en'):
-    global YANDEX_TRANSLATE_JSON
+    global YANDEX_TRANSLATE_JSON, FORMAT
     trans_types = {'en': 'en-ru', 'ru': 'ru-en'}
     result = False
-    params = {'lang': trans_types[trans_type], 'text': for_translate}
+    params = {
+        'key': key.api_key,
+        'lang': trans_types[trans_type], 
+        'text': for_translate,
+        'format': FORMAT[0]
+    }
     prepate_url = parse.urlencode(params, encoding="utf-8")
+    print(YANDEX_TRANSLATE_JSON + prepate_url)
     try:
         conn = request.urlopen(YANDEX_TRANSLATE_JSON + prepate_url, None, 1)
         if conn.status == 200:
@@ -30,7 +37,11 @@ def check_spell(for_spelling, spell_type='en'):
     result = False
     # options = IGNORE_DIGITS(2) + IGNORE_DIGITS(4) + IGNORE_CAPITALIZATION(512) + [BY_WORDS(256)]
     # params = {'lang': spell_type, 'text': for_spelling, 'format': 'plain', 'options': 518}
-    params = {'lang': spell_type, 'text': for_spelling, 'format': 'html', 'options': 518}
+    params = {
+        'lang': spell_type, 
+        'text': for_spelling, 
+        'format': 'plain', 
+        'options': 518}
     prepate_url = parse.urlencode(params, encoding="utf-8")
     erro_codes = ("ERROR_UNKNOWN_WORD",
         "ERROR_REPEAT_WORD",
