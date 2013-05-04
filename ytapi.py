@@ -19,7 +19,7 @@ def get_translate(for_translate, trans_type='en'):
         'format': FORMAT[0]
     }
     prepate_url = parse.urlencode(params, encoding="utf-8")
-    print(YANDEX_TRANSLATE_JSON + prepate_url)
+    # print(YANDEX_TRANSLATE_JSON + prepate_url)
     try:
         conn = request.urlopen(YANDEX_TRANSLATE_JSON + prepate_url, None, 1)
         if conn.status == 200:
