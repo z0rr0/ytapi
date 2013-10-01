@@ -11,36 +11,40 @@ FORMAT = ('plain', 'html')
 def get_translate(for_translate, trans_type='en'):
     global YANDEX_TRANSLATE_JSON, FORMAT
     trans_types = {'en': 'en-ru', 'ru': 'ru-en'}
-    result = False
+    result = None
     params = {
         'key': key.api_key,
-        'lang': trans_types[trans_type], 
+        'lang': trans_types[trans_type],
         'text': for_translate,
         'format': FORMAT[0]
     }
     prepate_url = parse.urlencode(params, encoding="utf-8")
-    # print(YANDEX_TRANSLATE_JSON + prepate_url)
+    if key.DEBUG: print(YANDEX_TRANSLATE_JSON + prepate_url)
     try:
         conn = request.urlopen(YANDEX_TRANSLATE_JSON + prepate_url, None, 1)
         if conn.status == 200:
             from_url = conn.read().decode('utf-8')
             result = json.loads(from_url)
+        else:
+            print("ERROR: connection answer code - {0}".format(conn.status))
     except Exception as e:
         print("Not connection\nError: ".format(e))
         return result
     else:
+        if key.DEBUG: print(from_url)
+    finally:
         conn.close()
     return result
- 
+
 def check_spell(for_spelling, spell_type='en'):
     global YANDEX_SPELL_JSON
-    result = False
+    result = None
     # options = IGNORE_DIGITS(2) + IGNORE_DIGITS(4) + IGNORE_CAPITALIZATION(512) + [BY_WORDS(256)]
     # params = {'lang': spell_type, 'text': for_spelling, 'format': 'plain', 'options': 518}
     params = {
-        'lang': spell_type, 
-        'text': for_spelling, 
-        'format': 'plain', 
+        'lang': spell_type,
+        'text': for_spelling,
+        'format': 'plain',
         'options': 518}
     prepate_url = parse.urlencode(params, encoding="utf-8")
     erro_codes = ("ERROR_UNKNOWN_WORD",
@@ -52,10 +56,14 @@ def check_spell(for_spelling, spell_type='en'):
         if conn.status == 200:
             from_url = conn.read().decode('utf-8')
             result = json.loads(from_url)
+        else:
+            print("ERROR: connection answer code - {0}".format(conn.status))
     except Exception as e:
         print("Not connection\nError: ".format(e))
         return result
     else:
+        if key.DEBUG: print(from_url)
+    finally:
         conn.close()
     if len(result) > 0:
         print("Spelling: ", end="")
@@ -66,7 +74,7 @@ def check_spell(for_spelling, spell_type='en'):
     return 0
 
 def main():
-    if len(sys.argv) > 1 and sys.argv[1] in ('en', 'ru'):
+    if len(sys.argv) > 1 and (sys.argv[1] in ('en', 'ru')):
         args = sys.argv[2:]
         ttype = sys.argv[1]
     else:
@@ -77,7 +85,7 @@ def main():
     if arg:
         print(arg['text'])
     else:
-        print("Error")
+        print("ERROR: no result")
     return 0
 
 if __name__ == "__main__":
