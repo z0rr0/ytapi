@@ -11,14 +11,14 @@ python3 ytapi.py London is the capital of Great Britain
 ['Лондон-столица Великобритании']
 ```
 
-If your phrase contains qoutes then you can use single qoutes or back slash:
+If your phrase contains qoutes then you can use single qoutes for all text or back slash:
 
 ```
 python3 ytapi.py \"Yandex\" is a Russian Internet company
 ['"Яндекс" - Российская Интернет-компания']
 ```
 
-* To use another language direction, you can choose needed ones (en=en-ru, ru=ru-en) and use it as the first word in your request. The script can be simple modified to use other languages from [Yandex API documetation](http://api.yandex.ru/translate/langs.xml)
+* To use another language direction, you can choose needed one (en=en-ru, ru=ru-en) and use it as the first word in your request. The script can be simple modified to use other languages from [Yandex API documetation](http://api.yandex.ru/translate/langs.xml)
 
 ```
 python3 ytapi.py en hi, you can use translation from your console
