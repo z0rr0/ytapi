@@ -1,0 +1,80 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Ytapi by z0rr0</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/respond.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="stylesheets/ie.css">
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  </head>
+  <body>
+      <div id="header">
+        <nav>
+          <li class="fork"><a href="https://github.com/z0rr0/ytapi">View On GitHub</a></li>
+          <li class="downloads"><a href="https://github.com/z0rr0/ytapi/zipball/master">ZIP</a></li>
+          <li class="downloads"><a href="https://github.com/z0rr0/ytapi/tarball/master">TAR</a></li>
+          <li class="title">DOWNLOADS</li>
+        </nav>
+      </div><!-- end header -->
+
+    <div class="wrapper">
+
+      <section>
+        <div id="title">
+          <h1>Ytapi</h1>
+          <p>Simple Python script for using Yandex Translate API</p>
+          <hr>
+          <span class="credits left">Project maintained by <a href="https://github.com/z0rr0">z0rr0</a></span>
+          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></span>
+        </div>
+
+        <h1>
+<a name="ytapi" class="anchor" href="#ytapi"><span class="octicon octicon-link"></span></a>Ytapi</h1>
+
+<p>It is easy Python script to translate and check spelling using the console, it based on <a href="http://api.yandex.ru/translate/">Yandex Translate API</a>. By default the script uses <strong>en-ru</strong> direction and UTF-8 encoding.</p>
+
+<h3>
+<a name="examples" class="anchor" href="#examples"><span class="octicon octicon-link"></span></a>Examples</h3>
+
+<ul>
+<li>Translation from English to Russian</li>
+</ul><pre><code>python3 ytapi.py London is the capital of Great Britain
+['Лондон-столица Великобритании']
+</code></pre>
+
+<p>If your phrase contains qoutes then you can use single qoutes or back slash:</p>
+
+<pre><code>python3 ytapi.py \"Yandex\" is a Russian Internet company
+['"Яндекс" - Российская Интернет-компания']
+</code></pre>
+
+<ul>
+<li>To use another language direction, you can choose needed ones (en=en-ru, ru=ru-en) and use it as the first word in your request. The script can be simple modified to use other languages from <a href="http://api.yandex.ru/translate/langs.xml">Yandex API documetation</a>
+</li>
+</ul><pre><code>python3 ytapi.py en hi, you can use translation from your console
+['Привет, вы можете использовать перевод с консоли']
+
+python3 ytapi.py ru Привет, вы можете использовать перевод из консоли
+['Hi, you can use the translation from the console']
+</code></pre>
+
+<p>The variable <strong>api_key</strong> in file key.py should contain your API KEY, you can get it for free on <a href="http://api.yandex.ru/key/form.xml?service=trnsl">Yandex web page</a>.</p>
+
+<p><em>Dependences: Python (default Python3, version for Python2 in 'python2' branch), urllib, json</em></p>
+      </section>
+
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+  </body>
+</html>
