@@ -1,6 +1,6 @@
 # Ytapi
 
-It is easy Python script to translate and check spelling using the console, it based on [Yandex Translate API](http://api.yandex.ru/translate/). By default the script uses **en-ru** direction and UTF-8 encoding.
+It is Python script to translate and check spelling using the console, it based on [Yandex Translate API](http://api.yandex.ru/translate/). By default the script uses **en-ru** direction and UTF-8 encoding.
 
 ### Examples
 
