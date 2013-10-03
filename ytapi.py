@@ -38,7 +38,7 @@ def get_dict(for_dict, dict_type):
                     if 'mean' in keys:
                         mean = "\n\tmean: " + ", ".join([s['text'] for s in res['mean']])
                     if 'ex' in keys:
-                        ex = "\n\texamples: " + "\n\t\t".join(["{0}: {1}".format(s['text'], ", ".join([t["text"] for t in s['tr']])) for s in res['ex']])
+                        ex = "\n\texamples:\n\t\t" + "\n\t\t".join(["{0}: {1}".format(s['text'], ", ".join([t["text"] for t in s['tr']])) for s in res['ex']])
                     ar_result.append("\t{0} ({1}){2}{3}{4}".format(res['text'], res['pos'], syn, mean, ex))
                 all_result.append(txt_result + "\n".join(ar_result))
             result = "\n".join(all_result)
