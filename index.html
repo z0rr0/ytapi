@@ -68,9 +68,40 @@ python3 ytapi.py ru Привет, вы можете использовать п�
 ['Hi, you can use the translation from the console']
 </code></pre>
 
-<p>The variable <strong>api_key</strong> in file key.py should contain your API KEY, you can get it for free on <a href="http://api.yandex.ru/key/form.xml?service=trnsl">Yandex web page</a>.</p>
+<ul>
+<li>If your phrase for translation contains only one word then you will get dictionary article:</li>
+</ul><pre><code>python3 ytapi.py en magazine
+magazine [mægəˈziːn] (noun)
+        журнал (существительное)
+        syn: кассета, обойма, журнальчик
+        mean: journal, cartridge
+        examples: Forbes magazine: журнал Forbes
+                China sourcing magazine: кассета Sourcing Китая
+                spare magazine: запасная обойма
+        магазин (существительное)
+        examples: box magazine: коробчатый магазин
+magazine [mægəˈziːn] (adjective)
+        журнальный (прилагательное)
+        mean: journal
+        examples: magazine table: журнальный столик
+</code></pre>
 
-<p><em>Dependences: Python (default Python3, version for Python2 in 'python2' branch), urllib, json</em></p>
+<p>User should get API KEYs before an using this script, them values have to wrote to variables in file <strong>key.py</strong>:</p>
+
+<ol>
+<li>
+<strong>api_key</strong> - API KEY for <a href="http://api.yandex.ru/key/form.xml?service=trnsl">Yandex Translate</a>
+</li>
+<li>
+<strong>api_key_dict</strong> - API KEY for <a href="http://api.yandex.ru/key/form.xml?service=dict">Yandex Dictionary</a>
+</li>
+</ol><p>It was implemented using the services:</p>
+
+<ul>
+<li><a href="http://api.yandex.ru/dictionary/">Yandex Dictionary</a></li>
+<li><a href="http://api.yandex.ru/translate/">Yandex Translate</a></li>
+<li><a href="http://api.yandex.ru/speller/">Yandex Speller</a></li>
+</ul><p><em>Dependences: Python (default Python3, version for Python2 in 'python2' branch), urllib, json</em></p>
       </section>
 
     </div>
