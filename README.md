@@ -28,6 +28,35 @@ python3 ytapi.py ru Привет, вы можете использовать п�
 ['Hi, you can use the translation from the console']
 ```
 
-The variable **api_key** in file key.py should contain your API KEY, you can get it for free on [Yandex web page](http://api.yandex.ru/key/form.xml?service=trnsl).
+* If your phrase for translation contains only one word then you will get dictionary article:
+
+```
+python3 ytapi.py en magazine
+magazine [mægəˈziːn] (noun)
+        журнал (существительное)
+        syn: кассета, обойма, журнальчик
+        mean: journal, cartridge
+        examples: Forbes magazine: журнал Forbes
+                China sourcing magazine: кассета Sourcing Китая
+                spare magazine: запасная обойма
+        магазин (существительное)
+        examples: box magazine: коробчатый магазин
+magazine [mægəˈziːn] (adjective)
+        журнальный (прилагательное)
+        mean: journal
+        examples: magazine table: журнальный столик
+```
+
+User should get API KEYs before an using this script, them values have to wrote to variables in file **key.py**:
+
+1. **api_key** - API KEY for [Yandex Translate](http://api.yandex.ru/key/form.xml?service=trnsl)
+2. **api\_key\_dict** - API KEY for [Yandex Dictionary](http://api.yandex.ru/key/form.xml?service=dict)
+
+
+Implemented using the services:
+
+* [Yandex Dictionary](http://api.yandex.ru/dictionary/)
+* [Yandex Translate](http://api.yandex.ru/translate/)
+* [Yandex Speller](http://api.yandex.ru/speller/)
 
 <small>*Dependences: Python (default Python3, version for Python2 in 'python2' branch), urllib, json*</small>
