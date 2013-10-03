@@ -52,8 +52,7 @@ User should get API KEYs before an using this script, them values have to wrote 
 1. **api_key** - API KEY for [Yandex Translate](http://api.yandex.ru/key/form.xml?service=trnsl)
 2. **api\_key\_dict** - API KEY for [Yandex Dictionary](http://api.yandex.ru/key/form.xml?service=dict)
 
-
-Implemented using the services:
+It was implemented using the services:
 
 * [Yandex Dictionary](http://api.yandex.ru/dictionary/)
 * [Yandex Translate](http://api.yandex.ru/translate/)
