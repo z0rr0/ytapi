@@ -8,7 +8,6 @@ YANDEX_TRANSLATE_JSON = "https://translate.yandex.net/api/v1.5/tr.json/translate
 YANDEX_DICT_JSON = "https://dictionary.yandex.net/api/v1/dicservice.json/lookup?"
 YANDEX_SPELL_JSON = "http://speller.yandex.net/services/spellservice.json/checkText?"
 FORMAT = ('plain', 'html')
-DICT_FORMAT = """{0} [{1}] ({2}) - {3}\nsyn: {4}\n{}"""
 
 def get_dict(for_dict, dict_type):
     global YANDEX_DICT_JSON
@@ -129,8 +128,7 @@ def main():
     else:
         args = sys.argv[1:]
         ttype = 'en'
-    chsp = check_spell(" ".join(args), ttype)
-    if chsp:
+    if check_spell(" ".join(args), ttype):
         print("WARNING: spelling check error")
     arg = get_translate(" ".join(args), ttype)
     if arg:
