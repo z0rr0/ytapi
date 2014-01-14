@@ -20,7 +20,8 @@ def get_dict(for_dict, dict_type):
     prepate_url = parse.urlencode(params, encoding="utf-8")
     if key.DEBUG: print(YANDEX_DICT_JSON + prepate_url)
     try:
-        with request.urlopen(YANDEX_DICT_JSON + prepate_url, None, 1) as conn:
+        opener = request.build_opener(request.ProxyHandler(key.proxies))
+        with opener.open(YANDEX_DICT_JSON + prepate_url, None, 0.5) as conn:
             if conn.status == 200:
                 from_url = conn.read().decode('utf-8')
                 result = json.loads(from_url)
@@ -67,7 +68,8 @@ def get_translate(for_translate, trans_type='en'):
     prepate_url = parse.urlencode(params, encoding="utf-8")
     if key.DEBUG: print(YANDEX_TRANSLATE_JSON + prepate_url)
     try:
-        with request.urlopen(YANDEX_TRANSLATE_JSON + prepate_url, None, 1) as conn:
+        opener = request.build_opener(request.ProxyHandler(key.proxies))
+        with opener.open(YANDEX_TRANSLATE_JSON + prepate_url, None, 0.5) as conn:
             if conn.status == 200:
                 from_url = conn.read().decode('utf-8')
                 result = json.loads(from_url)
@@ -96,7 +98,8 @@ def check_spell(for_spelling, spell_type='en'):
         "ERROR_CAPITALIZATION",
         "ERROR_TOO_MANY_ERRORS")
     try:
-        with request.urlopen(YANDEX_SPELL_JSON + prepate_url, None, 1) as conn:
+        opener = request.build_opener(request.ProxyHandler(key.proxies))
+        with opener.open(YANDEX_SPELL_JSON + prepate_url, None, 0.5) as conn:
             if conn.status == 200:
                 from_url = conn.read().decode('utf-8')
                 result = json.loads(from_url)
