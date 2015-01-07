@@ -1,0 +1,13 @@
+{
+  "APItr": "key value",
+  "APIdict": "key value",
+  "APIlangs": {
+    "en-ru": ["англ", "en"],
+    "ru-en": ["ru", "ру"],
+    "en-fr": ["fr", "фр"],
+    "fr-en": ["fre"],
+    "sl-en": ["sl-en"]
+  },
+  "Default": "en-ru",
+  "Debug": false
+}

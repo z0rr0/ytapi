@@ -1,6 +1,6 @@
 # Ytapi
 
-It is Python script to translate and check spelling using the console, it based on [Yandex Translate API](http://api.yandex.ru/translate/). By default the script uses **en-ru** direction and UTF-8 encoding.
+It is Python script to translate and check spelling using the console, it based on [Yandex Translate API](http://api.yandex.ru/translate/). By default the script uses UTF-8 encoding.
 
 ### Examples
 
@@ -18,20 +18,21 @@ python3 ytapi.py \"Yandex\" is a Russian Internet company
 ['"Яндекс" - Российская Интернет-компания']
 ```
 
-* To use another language direction, you can choose needed one (en=en-ru, ru=ru-en) and use it as the first word in your request. The script can be simple modified to use other languages from [Yandex API documetation](http://api.yandex.ru/translate/langs.xml)
+* To use another language direction, you can choose needed one using "--langs" parameter and use it as the first word in your request.
 
 ```
-python3 ytapi.py en hi, you can use translation from your console
+python3 ytapi.py en-ru hi, you can use translation from your console
 ['Привет, вы можете использовать перевод с консоли']
 
-python3 ytapi.py ru Привет, вы можете использовать перевод из консоли
+python3 ytapi.py ru-en Привет, вы можете использовать перевод из консоли
 ['Hi, you can use the translation from the console']
 ```
 
 * If your phrase for translation contains only one word then you will get dictionary article:
 
 ```
-python3 ytapi.py en magazine
+python3 ytapi.py en-ru magazine
+
 magazine [mægəˈziːn] (noun)
         журнал (существительное)
         syn: кассета, обойма, журнальчик
@@ -47,15 +48,32 @@ magazine [mægəˈziːn] (adjective)
         examples: magazine table: журнальный столик
 ```
 
-User should get API KEYs before an using this script, them values have to wrote to variables in file **key.py**:
 
-1. **api_key** - API KEY for [Yandex Translate](http://api.yandex.ru/key/form.xml?service=trnsl)
-2. **api\_key\_dict** - API KEY for [Yandex Dictionary](http://api.yandex.ru/key/form.xml?service=dict)
+
+### API keys
+
+You should get API KEYs before an using this program, them values have to written to a file **$HOME/.ytapi.json** (see the example `ytapigo_example.json`). **APIlangs** is a set of [available translate directions](https://tech.yandex.ru/translate/doc/dg/concepts/langs-docpage/), each one can have a list of possible user's aliases.
+
+```javascript
+{
+  "APItr": "some key value",
+  "APIdict": "some key value",
+  "Aliases": {                      // User's languages aliases
+    "en-ru": ["en", "англ"],
+    "ru-en": ["ru", "ру"],
+  },
+  "Default": "en-ru"                // default translation direction
+}
+```
+
+1. **APItr** - API KEY for [Yandex Translate](https://tech.yandex.ru/keys/get/?service=trnsl)
+2. **APIdict** - API KEY for [Yandex Dictionary](https://tech.yandex.ru/keys/get/?service=dict)
 
 It was implemented using the services:
 
-* [Yandex Dictionary](http://api.yandex.ru/dictionary/)
-* [Yandex Translate](http://api.yandex.ru/translate/)
+* [Yandex Dictionary](http://api.yandex.com/dictionary/)
+* [Yandex Translate](http://api.yandex.com/translate/)
 * [Yandex Speller](http://api.yandex.ru/speller/)
 
-<small>*Dependences: Python (default Python3, version for Python2 in 'python2' branch), urllib, json*</small>
+
+<small>*Dependences: Python standart library (default Python3, version for Python2 in 'python2' branch).*</small>
