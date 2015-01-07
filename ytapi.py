@@ -136,7 +136,7 @@ class Translater(object):
             all_result = []
             for d in result['def']:
                 ts = " [{0}] ".format(d['ts']) if 'ts' in d.keys() else " "
-                txt_result = u"{0}{1}({2})\n".format(d['text'], ts, d['pos'])
+                txt_result = "{0}{1}({2})\n".format(d['text'], ts, d['pos'])
                 ar_result = []
                 for res in d['tr']:
                     keys = res.keys()
@@ -164,7 +164,7 @@ class Translater(object):
         self._config = {
             "APItr": data.get("APItr", ""),
             "APIdict": data.get("APIdict", ""),
-            "Aliases": data.get("Aliases", []),
+            "Aliases": data.get("Aliases", {}),
             "Default": data.get("Default", ""),
             "Debug": data.get("Debug", False),
             "proxies": data.get("proxies", {}) # only for backward compatibility
@@ -263,22 +263,22 @@ def get_tr(params):
         elif lenparams == 1:
             ddir_ok, tdir_ok = trobj.check_direction()
             if not ddir_ok:
-                raise YtException("Cannot verify 'Default' translation direction. Please check the config file: {0}".format(trobj.cfgpath))
+                raise YtException("Cannot verify 'Default' translation direction. Please check a language direction prefix the config file: {0}".format(trobj.cfgpath))
             langs, alias = trobj.cfg("Default"), False
             trobj.isdict, txt = True, params[0]
         else:
             ddir_ok, tdir_ok = trobj.check_aliasdirection(params[0])
             if (not ddir_ok) and (not tdir_ok):
-                raise YtException("Cannot verify translation direction. Please check the config file: {0}".format(trobj.cfgpath))
+                raise YtException("Cannot verify translation direction. Please check a language direction prefix  the config file: {0}".format(trobj.cfgpath))
             if trobj.isalias:
-                if (lenparams == 2) and (not ddir_ok):
-                    raise YtException("Cannot verify dictionary direction. Please check the config file: {0}".format(trobj.cfgpath))
+                if (len(params[1].split(" ")) == 1) and (not ddir_ok):
+                    raise YtException("Cannot verify dictionary direction. Please check a language direction prefix the config file: {0}".format(trobj.cfgpath))
                 txt = " ".join(params[1:])
             else:
                 txt = " ".join(params)
         source = trobj.get_source()
         loop, tasks = asyncio.get_event_loop(), []
-        if source in ("en", "uk", "ru"):
+        if source in ("en", "uk", "r"):
             tasks.append(asyncio.async(get_spelling(trobj, source, txt)))
         tasks.append(asyncio.async(get_translation(trobj, txt)))
         loop.run_until_complete(asyncio.wait(tasks))
