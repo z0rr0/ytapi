@@ -39,16 +39,18 @@
         </div>
 
         <h1>
-<a name="ytapi" class="anchor" href="#ytapi"><span class="octicon octicon-link"></span></a>Ytapi</h1>
+<a id="ytapi" class="anchor" href="#ytapi" aria-hidden="true"><span class="octicon octicon-link"></span></a>Ytapi</h1>
 
-<p>It is Python script to translate and check spelling using the console, it based on <a href="http://api.yandex.ru/translate/">Yandex Translate API</a>. By default the script uses <strong>en-ru</strong> direction and UTF-8 encoding.</p>
+<p>It is Python script to translate and check spelling using the console, it based on <a href="http://api.yandex.ru/translate/">Yandex Translate API</a>. By default the script uses UTF-8 encoding.</p>
 
 <h3>
-<a name="examples" class="anchor" href="#examples"><span class="octicon octicon-link"></span></a>Examples</h3>
+<a id="examples" class="anchor" href="#examples" aria-hidden="true"><span class="octicon octicon-link"></span></a>Examples</h3>
 
 <ul>
 <li>Translation from English to Russian</li>
-</ul><pre><code>python3 ytapi.py London is the capital of Great Britain
+</ul>
+
+<pre><code>python3 ytapi.py London is the capital of Great Britain
 ['Лондон-столица Великобритании']
 </code></pre>
 
@@ -59,18 +61,22 @@
 </code></pre>
 
 <ul>
-<li>To use another language direction, you can choose needed one (en=en-ru, ru=ru-en) and use it as the first word in your request. The script can be simple modified to use other languages from <a href="http://api.yandex.ru/translate/langs.xml">Yandex API documetation</a>
-</li>
-</ul><pre><code>python3 ytapi.py en hi, you can use translation from your console
+<li>To use another language direction, you can choose needed one using "--langs" parameter and use it as the first word in your request.</li>
+</ul>
+
+<pre><code>python3 ytapi.py en-ru hi, you can use translation from your console
 ['Привет, вы можете использовать перевод с консоли']
 
-python3 ytapi.py ru Привет, вы можете использовать перевод из консоли
+python3 ytapi.py ru-en Привет, вы можете использовать перевод из консоли
 ['Hi, you can use the translation from the console']
 </code></pre>
 
 <ul>
 <li>If your phrase for translation contains only one word then you will get dictionary article:</li>
-</ul><pre><code>python3 ytapi.py en magazine
+</ul>
+
+<pre><code>python3 ytapi.py en-ru magazine
+
 magazine [mægəˈziːn] (noun)
         журнал (существительное)
         syn: кассета, обойма, журнальчик
@@ -86,22 +92,39 @@ magazine [mægəˈziːn] (adjective)
         examples: magazine table: журнальный столик
 </code></pre>
 
-<p>User should get API KEYs before an using this script, them values have to wrote to variables in file <strong>key.py</strong>:</p>
+<h3>
+<a id="api-keys" class="anchor" href="#api-keys" aria-hidden="true"><span class="octicon octicon-link"></span></a>API keys</h3>
+
+<p>You should get API KEYs before an using this program, them values have to written to a file <strong>$HOME/.ytapi.json</strong> (see the example <code>ytapigo_example.json</code>). <strong>APIlangs</strong> is a set of <a href="https://tech.yandex.ru/translate/doc/dg/concepts/langs-docpage/">available translate directions</a>, each one can have a list of possible user's aliases.</p>
+
+<div class="highlight highlight-javascript"><pre>{
+  <span class="pl-s1"><span class="pl-pds">"</span>APItr<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>some key value<span class="pl-pds">"</span></span>,
+  <span class="pl-s1"><span class="pl-pds">"</span>APIdict<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>some key value<span class="pl-pds">"</span></span>,
+  <span class="pl-s1"><span class="pl-pds">"</span>Aliases<span class="pl-pds">"</span></span><span class="pl-k">:</span> {                      <span class="pl-c">// User's languages aliases</span>
+    <span class="pl-s1"><span class="pl-pds">"</span>en-ru<span class="pl-pds">"</span></span><span class="pl-k">:</span> [<span class="pl-s1"><span class="pl-pds">"</span>en<span class="pl-pds">"</span></span>, <span class="pl-s1"><span class="pl-pds">"</span>англ<span class="pl-pds">"</span></span>],
+    <span class="pl-s1"><span class="pl-pds">"</span>ru-en<span class="pl-pds">"</span></span><span class="pl-k">:</span> [<span class="pl-s1"><span class="pl-pds">"</span>ru<span class="pl-pds">"</span></span>, <span class="pl-s1"><span class="pl-pds">"</span>ру<span class="pl-pds">"</span></span>],
+  },
+  <span class="pl-s1"><span class="pl-pds">"</span>Default<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>en-ru<span class="pl-pds">"</span></span>                <span class="pl-c">// default translation direction</span>
+}</pre></div>
 
 <ol>
 <li>
-<strong>api_key</strong> - API KEY for <a href="http://api.yandex.ru/key/form.xml?service=trnsl">Yandex Translate</a>
+<strong>APItr</strong> - API KEY for <a href="https://tech.yandex.ru/keys/get/?service=trnsl">Yandex Translate</a>
 </li>
 <li>
-<strong>api_key_dict</strong> - API KEY for <a href="http://api.yandex.ru/key/form.xml?service=dict">Yandex Dictionary</a>
+<strong>APIdict</strong> - API KEY for <a href="https://tech.yandex.ru/keys/get/?service=dict">Yandex Dictionary</a>
 </li>
-</ol><p>It was implemented using the services:</p>
+</ol>
+
+<p>It was implemented using the services:</p>
 
 <ul>
-<li><a href="http://api.yandex.ru/dictionary/">Yandex Dictionary</a></li>
-<li><a href="http://api.yandex.ru/translate/">Yandex Translate</a></li>
+<li><a href="http://api.yandex.com/dictionary/">Yandex Dictionary</a></li>
+<li><a href="http://api.yandex.com/translate/">Yandex Translate</a></li>
 <li><a href="http://api.yandex.ru/speller/">Yandex Speller</a></li>
-</ul><p><em>Dependences: Python (default Python3, version for Python2 in 'python2' branch), urllib, json</em></p>
+</ul>
+
+<p><em>Dependences: Python standart library (default Python3, version for Python2 in 'python2' branch).</em></p>
       </section>
 
     </div>
