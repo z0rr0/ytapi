@@ -64,7 +64,7 @@ def get_translation(obj, txt):
         'lang': obj.langs,
         'text': txt
     }
-    if len(txt.split(" ")) > 1:
+    if len(txt.split(" ", 2)) > 1:
         isdict, url = False, YtJsonURLs[1]
         params['key'], params['format'] = obj.cfg("APItr"), FORMAT[0]
     else:
@@ -218,7 +218,7 @@ class Translater(object):
 
     def get_source(self):
         """get source language"""
-        langs = self._langs.split("-")
+        langs = self._langs.split("-", 2)
         if len(langs) < 2:
             raise YtException("Cannot detect source language. Please check the config file: {0}".format(self.cfgpath))
         return langs[0]
@@ -271,7 +271,7 @@ def get_tr(params):
             if (not ddir_ok) and (not tdir_ok):
                 raise YtException("Cannot verify translation direction. Please check a language direction prefix  the config file: {0}".format(trobj.cfgpath))
             if trobj.isalias:
-                if (len(params[1].split(" ")) == 1) and (not ddir_ok):
+                if (len(params[1].split(" ", 2)) == 1) and (not ddir_ok):
                     raise YtException("Cannot verify dictionary direction. Please check a language direction prefix the config file: {0}".format(trobj.cfgpath))
                 txt = " ".join(params[1:])
             else:
