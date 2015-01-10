@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
 #-*- coding: utf-8 -*-
+"""It is a program to translate and check spelling using the console"""
 
 import os, sys, json, logging, asyncio, urllib, re, argparse
 from urllib import request, parse
+# from functools import lru_cache
 
 # 0-Spelling, 1-Translation, 2-Dictionary,
 # 3-Translation directions, 4-Dictionary directions
-YtJsonURLs = (
+YTJSONURLS = (
     "http://speller.yandex.net/services/spellservice.json/checkText?",
     "https://translate.yandex.net/api/v1.5/tr.json/translate?",
     "https://dictionary.yandex.net/api/v1/dicservice.json/lookup?",
@@ -45,7 +47,7 @@ def get_spelling(obj, lang, txt):
         'format': FORMAT[0],
         'options': 518
     }
-    data = ytrequest(obj, YtJsonURLs[0], params)
+    data = ytrequest(obj, YTJSONURLS[0], params)
     if not data:
         logging.error("Cannot check a spelling. {0}".format(HTTPER))
         return
@@ -65,10 +67,10 @@ def get_translation(obj, txt):
         'text': txt
     }
     if len(txt.split(" ", 2)) > 1:
-        isdict, url = False, YtJsonURLs[1]
+        isdict, url = False, YTJSONURLS[1]
         params['key'], params['format'] = obj.cfg("APItr"), FORMAT[0]
     else:
-        isdict, url = True, YtJsonURLs[2]
+        isdict, url = True, YTJSONURLS[2]
         params['key'] = obj.cfg("APIdict")
     data = ytrequest(obj, url, params)
     if not data:
@@ -81,9 +83,9 @@ def get_translation(obj, txt):
 def get_lang_list(obj, isdict):
     """gets available languages"""
     if isdict:
-        url, params = YtJsonURLs[4], {"key": obj.cfg("APIdict")}
+        url, params = YTJSONURLS[4], {"key": obj.cfg("APIdict")}
     else:
-        url, params = YtJsonURLs[3], {"key": obj.cfg("APItr"), "ui": "en"}
+        url, params = YTJSONURLS[3], {"key": obj.cfg("APItr"), "ui": "en"}
     data = ytrequest(obj, url, params)
     if not data:
         return
@@ -134,11 +136,11 @@ class Translater(object):
         isdict, result = value[0], value[1]
         if isdict:
             all_result = []
-            for d in result['def']:
-                ts = " [{0}] ".format(d['ts']) if 'ts' in d.keys() else " "
-                txt_result = "{0}{1}({2})\n".format(d['text'], ts, d['pos'])
+            for defv in result['def']:
+                trs = " [{0}] ".format(defv['ts']) if 'ts' in defv.keys() else " "
+                txt_result = "{0}{1}({2})\n".format(defv['text'], trs, defv['pos'])
                 ar_result = []
-                for res in d['tr']:
+                for res in defv['tr']:
                     keys = res.keys()
                     syn, mean, ex = "", "", ""
                     if 'syn' in keys:
@@ -174,10 +176,9 @@ class Translater(object):
         else:
             logging.basicConfig(format="ERROR: %(message)s", level=logging.ERROR)
         if (not self._config["APItr"]) or (not self._config["APIdict"]):
-            raise YtException("Can not read API keys values from the config file: {0}".format(cfg_path))
-        for i, v in self._config["Aliases"].items():
-            self._config["Aliases"][i] = set(v)
-
+            raise YtException("Can not read API keys values from the config file: {0}".format(self._cfgpath))
+        for index, val in self._config["Aliases"].items():
+            self._config["Aliases"][index] = set(val)
 
     def check_direction(self):
         """checks - default direction is available"""
@@ -197,11 +198,11 @@ class Translater(object):
             return False, False
         self._langs, self._alias = self.cfg("Default"), False
         alias = direction
-        for i, v in self._config["Aliases"].items():
-            if i == direction:
+        for index, val in self._config["Aliases"].items():
+            if index == direction:
                 break
-            if direction in v:
-                alias = i
+            if direction in val:
+                alias = index
                 break
         loop, tasks = asyncio.get_event_loop(), []
         tasks.append(asyncio.async(get_lang_list(self, True)))
@@ -225,7 +226,7 @@ class Translater(object):
 
 def get_langs():
     """will print available languages"""
-    n = 3
+    coln = 3
     result, trobj = "", Translater()
     try:
         trobj.read_config()
@@ -233,11 +234,11 @@ def get_langs():
         trobj.langslist["dict"].sort()
         trobj.langslist["tr"]["dirs"].sort()
         desc_str = []
-        for k, v in trobj.langslist["tr"].get("langs", []).items():
-            desc_str.append("{0} - {1}".format(k, v))
+        for key, val in trobj.langslist["tr"].get("langs", []).items():
+            desc_str.append("{0} - {1}".format(key, val))
         desc_str.sort()
         counter, output = len(desc_str), []
-        collen = counter // n + 1 if counter % n else counter // n
+        collen = counter // coln + 1 if counter % coln else counter // coln
         for j in range(collen):
             if j + 2 * collen < counter:
                 output.append("{0:<25} {1:<25} {2:<25}".format(desc_str[j], desc_str[j+collen], desc_str[j+2*collen]))
@@ -245,7 +246,9 @@ def get_langs():
                 output.append("{0:<25} {1:<25}".format(desc_str[j], desc_str[j+collen]))
             else:
                 output.append("{0:<25}".format(desc_str[j]))
-        result = "Dictionary languages:\n{0}\nTranslation languages:\n{1}\n{2}".format(", ".join(trobj.langslist["dict"]), ", ".join(trobj.langslist["tr"]["dirs"]), "\n".join(output))
+        result = "Dictionary languages:\n{0}\nTranslation languages:\n{1}\n{2}".format(\
+            ", ".join(trobj.langslist["dict"]), \
+            ", ".join(trobj.langslist["tr"]["dirs"]), "\n".join(output))
     except (YtException, AssertionError) as err1:
         logging.error(err1)
     except (IOError) as err2:
