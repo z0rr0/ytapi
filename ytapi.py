@@ -274,9 +274,9 @@ def get_tr(params):
             if (not ddir_ok) and (not tdir_ok):
                 raise YtException("Cannot verify translation direction. Please check a language direction prefix  the config file: {0}".format(trobj.cfgpath))
             if trobj.isalias:
-                if (len(params[1].split(" ", 2)) == 1) and (not ddir_ok):
-                    raise YtException("Cannot verify dictionary direction. Please check a language direction prefix the config file: {0}".format(trobj.cfgpath))
                 txt = " ".join(params[1:])
+                if (len(txt.split(" ", 2)) == 1) and (not ddir_ok):
+                    raise YtException("Cannot verify dictionary direction. Please check a language direction prefix the config file: {0}".format(trobj.cfgpath))
             else:
                 txt = " ".join(params)
         source = trobj.get_source()
